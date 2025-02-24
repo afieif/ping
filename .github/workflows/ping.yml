@@ -1,0 +1,28 @@
+name: Ping Space Insights URLs
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"  # Runs every 30 minutes
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  ping_urls:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute curl requests
+        run: |
+          URLS=(
+            "https://space-insights-xi.vercel.app/"
+            "https://spaceinsights.onrender.com/flr"
+            "https://spaceinsights.onrender.com/cme"
+            "https://spaceinsights.onrender.com/apod"
+            "https://spaceinsights.onrender.com/notifications"
+            "https://spaceinsights.onrender.com/event-counts"
+          )
+          for URL in "${URLS[@]}"; do
+            if curl --silent --head --fail "$URL" > /dev/null; then
+              echo "Successfully pinged $URL"
+            else
+              echo "Failed to reach $URL"
+            fi
+          done
