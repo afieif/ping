@@ -20,7 +20,7 @@ jobs:
             "https://spaceinsights.onrender.com/event-counts"
           )
           for URL in "${URLS[@]}"; do
-            if curl --silent --head --fail "$URL" > /dev/null; then
+            if curl --silent --fail "$URL" > /dev/null; then
               echo "Successfully pinged $URL"
             else
               echo "Failed to reach $URL"
